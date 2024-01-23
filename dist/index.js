@@ -2125,14 +2125,14 @@ Check the top-level render call using <` + c + ">.");
   }()), Ge;
 }
 process.env.NODE_ENV === "production" ? Nr.exports = Yt() : Nr.exports = Bt();
-var vt = Nr.exports;
-function zt({ children: V, ...v }) {
-  return /* @__PURE__ */ vt.jsx("button", { ...v, children: V });
+var vt = Nr.exports, zt = { button: "hffctd0" };
+function qt({ children: V, ...v }) {
+  return /* @__PURE__ */ vt.jsx("button", { className: zt.button, ...v, children: V });
 }
-function qt({ children: V }) {
+function Ht({ children: V }) {
   return /* @__PURE__ */ vt.jsx("a", { children: V });
 }
 export {
-  zt as Button,
-  qt as Link
+  qt as Button,
+  Ht as Link
 };
