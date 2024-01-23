@@ -27,11 +27,12 @@ jobs:
       # MEMO: なぜかビルドしたdistディレクトリが npm publishで配置されないので、
       # MEMO: 手動でビルドするようにする
       - name: Install → ビルドを行うためdevDependenciesもインストールする
+        working-directory: dev
         run: npm install
       - name: Build
+        working-directory: dev
         run: npm run build
       - name: publish npm package
         run: npm publish
-        working-directory: package
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
