@@ -19,7 +19,7 @@ export default defineConfig({
       fileName: 'index',
       formats: ['es'],
     },
-    outDir: 'package/dist',
+    outDir: '../dist',
     emptyOutDir: true,
   },
 });
