@@ -9,6 +9,15 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    options: {
+      storySort: {
+        order: [
+          'Workflow',
+          ['WorkflowContainer', 'Components'],
+          'Vanilla-Extract',
+        ],
+      },
+    },
   },
 };
 
