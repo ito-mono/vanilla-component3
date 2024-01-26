@@ -1,13 +1,27 @@
-import { WorkflowAction } from '@/components/Workflow/enum';
+import { Lunguage, WorkflowAction, WorkflowActionUtil } from '@wf/enum';
+import { WorkflowOnActionProps } from '@wf/types';
+
+import { styles } from './WorkflowActionButton.css';
 
 export type WorkflowActionButtonProps = {
   actionCode: WorkflowAction;
-  onAction?: (actionCode: WorkflowAction, params?: number) => void;
-};
+  lang?: Lunguage;
+  params?: unknown;
+} & WorkflowOnActionProps;
 
 export function WorkflowActionButton({
   actionCode,
+  lang = Lunguage.Japanese,
+  params,
   onAction = () => {},
 }: WorkflowActionButtonProps) {
-  return <button onClick={() => onAction(actionCode)}>{actionCode}</button>;
+  const isIcon = WorkflowActionUtil.isIcon(actionCode);
+  const label = WorkflowActionUtil.getLabel(actionCode, lang);
+  const className = isIcon ? styles.iconButton : styles.labelButton;
+
+  return (
+    <button className={className} onClick={() => onAction(actionCode, params)}>
+      {label}
+    </button>
+  );
 }

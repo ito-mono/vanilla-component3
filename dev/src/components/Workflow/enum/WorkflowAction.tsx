@@ -1,4 +1,4 @@
-/* prettier-ignore */
+// prettier-ignore
 export enum WorkflowAction {
   // ユニットに対してのアクション
   AddUnit = 1,                    // ユニット追加

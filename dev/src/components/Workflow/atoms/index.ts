@@ -1,2 +1,2 @@
-export * from './WorkflowUnit';
 export * from './WorkflowActionButton';
+export * from './WorkflowStatusLabel';

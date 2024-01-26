@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { WorkflowStatus } from '@wf/enum';
 
 import {
   WorkflowActionButtonsContainer,
@@ -6,7 +7,7 @@ import {
 } from '.';
 
 const meta: Meta = {
-  title: 'Workflow/WorkflowActionButtonsContainer',
+  title: 'Workflow/Components/WorkflowActionButtonsContainer',
   component: WorkflowActionButtonsContainer,
 };
 export default meta;
@@ -14,5 +15,7 @@ export default meta;
 type Story = StoryObj<WorkflowActionButtonsContainerProps>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    statusCode: WorkflowStatus.PrePetition,
+  },
 };

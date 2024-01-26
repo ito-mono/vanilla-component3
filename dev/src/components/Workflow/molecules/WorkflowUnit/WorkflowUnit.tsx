@@ -1,20 +1,14 @@
-import {
-  MdOutlinePersonAdd,
-  MdOutlinePersonRemove,
-  MdOutlinePersonSearch,
-} from 'react-icons/md';
+import { WorkflowActionButton } from '@wf/atoms';
+import { WorkflowAction } from '@wf/enum';
+import { EmployeeInfo, WorkflowOnActionProps } from '@wf/types';
 
 import { styles } from './WorkflowUnit.css';
-
-import { WorkflowAction } from '@/components/Workflow/enum';
-import { EmployeeInfo } from '@/components/Workflow/types';
 
 export type WorkflowUnitProps = {
   index?: number;
   title?: string;
   employeeInfo?: EmployeeInfo;
-  onAction?: (actionCode: WorkflowAction, params: unknown) => void;
-};
+} & WorkflowOnActionProps;
 
 export function WorkflowUnit({
   index,
@@ -42,24 +36,21 @@ export function WorkflowUnit({
           }
         </div>
         <div className={styles.buttonContainer}>
-          <button
-            onClick={() => onAction(WorkflowAction.AddUnit, index)}
-            className={styles.button}
-          >
-            <MdOutlinePersonAdd />
-          </button>
-          <button
-            onClick={() => onAction(WorkflowAction.ChangeApprover, index)}
-            className={styles.button}
-          >
-            <MdOutlinePersonSearch />
-          </button>
-          <button
-            onClick={() => onAction(WorkflowAction.RemoveUnit, index)}
-            className={styles.button}
-          >
-            <MdOutlinePersonRemove />
-          </button>
+          <WorkflowActionButton
+            actionCode={WorkflowAction.AddUnit}
+            onAction={onAction}
+            params={index}
+          />
+          <WorkflowActionButton
+            actionCode={WorkflowAction.ChangeApprover}
+            onAction={onAction}
+            params={index}
+          />
+          <WorkflowActionButton
+            actionCode={WorkflowAction.RemoveUnit}
+            onAction={onAction}
+            params={index}
+          />
         </div>
       </div>
     </div>

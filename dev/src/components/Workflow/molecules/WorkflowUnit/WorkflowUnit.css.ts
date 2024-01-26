@@ -13,6 +13,12 @@ export const styles = {
     ':hover': {
       backgroundColor: '#dddddd',
     },
+
+    selectors: {
+      '&:first-child': {
+        marginRight: '0.5rem',
+      },
+    },
   }),
 
   // コンテンツ
@@ -39,22 +45,6 @@ export const styles = {
   buttonContainer: style({
     display: 'flex',
     justifyContent: 'space-between',
-  }),
-  button: style({
-    width: '2rem',
-    height: '2rem',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: '2rem',
-    border: 'none',
-    borderRadius: '50%',
-    backgroundColor: '#eeeeee',
-    transition: 'background-color 0.2s',
-
-    ':hover': {
-      backgroundColor: '#bbbbbb',
-    },
   }),
 
   // error

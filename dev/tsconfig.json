@@ -23,6 +23,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
+      "@wf/*": ["src/components/Workflow/*"],
     },
   },
   "include": ["src"],

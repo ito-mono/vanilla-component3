@@ -5,7 +5,8 @@ export const styles = {
     width: 'fit-content',
     height: 'fit-content',
     display: 'flex',
-    border: '1px solid gray',
-    borderRadius: '0.8rem',
+    flexDirection: 'row-reverse',
+    flexWrap: 'wrap',
+    maxWidth: '30rem',
   }),
 };

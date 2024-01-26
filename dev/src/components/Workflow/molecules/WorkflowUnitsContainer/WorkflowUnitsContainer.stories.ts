@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { WorkflowUnitsContainer, WorkflowUnitsContainerProps } from '.';
 
 const meta: Meta = {
-  title: 'Workflow/WorkflowUnitsContainer',
+  title: 'Workflow/Components/WorkflowUnitsContainer',
   component: WorkflowUnitsContainer,
 };
 export default meta;
