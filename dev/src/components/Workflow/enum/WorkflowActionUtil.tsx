@@ -6,7 +6,7 @@ import {
   MdOutlinePersonSearch,
 } from 'react-icons/md';
 
-import { Lunguage, WorkflowAction } from '.';
+import { Language, WorkflowAction } from '.';
 
 // MEMO: namespace のLintエラーを一時的に解除
 // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -14,9 +14,9 @@ export namespace WorkflowActionUtil {
   // Codeからラベルを取得
   export function getLabel(
     actionCode: WorkflowAction,
-    lang: Lunguage = Lunguage.Japanese,
+    lang: Language = Language.Japanese,
   ): React.ReactNode {
-    if (isIcon(actionCode)) lang = Lunguage.Japanese; // アイコンの場合は強制的にjaにする
+    if (isIcon(actionCode)) lang = Language.Japanese; // アイコンの場合は強制的にjaにする
     return WorkflowActionLabel[actionCode][lang];
   }
 
@@ -32,48 +32,48 @@ export namespace WorkflowActionUtil {
     [key in WorkflowAction]: Record<string, React.ReactNode>;
   } = {
     [WorkflowAction.AddUnit]: {
-      [Lunguage.Japanese]: <MdOutlinePersonAdd />,
+      [Language.Japanese]: <MdOutlinePersonAdd />,
       isIcon: true,
     },
     [WorkflowAction.ChangeApprover]: {
-      [Lunguage.Japanese]: <MdOutlinePersonSearch />,
+      [Language.Japanese]: <MdOutlinePersonSearch />,
       isIcon: true,
     },
     [WorkflowAction.RemoveUnit]: {
-      [Lunguage.Japanese]: <MdOutlinePersonRemove />,
+      [Language.Japanese]: <MdOutlinePersonRemove />,
       isIcon: true,
     },
     [WorkflowAction.Modify]: {
-      [Lunguage.Japanese]: '編集',
-      [Lunguage.English]: 'Modify',
+      [Language.Japanese]: '編集',
+      [Language.English]: 'Modify',
     },
     [WorkflowAction.CancelModify]: {
-      [Lunguage.Japanese]: 'キャンセル',
-      [Lunguage.English]: 'Cancel',
+      [Language.Japanese]: 'キャンセル',
+      [Language.English]: 'Cancel',
     },
     [WorkflowAction.SubmitModify]: {
-      [Lunguage.Japanese]: '保存',
-      [Lunguage.English]: 'Save',
+      [Language.Japanese]: '保存',
+      [Language.English]: 'Save',
     },
     [WorkflowAction.Petition]: {
-      [Lunguage.Japanese]: '申請',
-      [Lunguage.English]: 'Petition',
+      [Language.Japanese]: '申請',
+      [Language.English]: 'Petition',
     },
     [WorkflowAction.CancelPetition]: {
-      [Lunguage.Japanese]: '申請キャンセル',
-      [Lunguage.English]: 'Cancel Petition',
+      [Language.Japanese]: '申請キャンセル',
+      [Language.English]: 'Cancel Petition',
     },
     [WorkflowAction.Approve]: {
-      [Lunguage.Japanese]: '承認',
-      [Lunguage.English]: 'Approve',
+      [Language.Japanese]: '承認',
+      [Language.English]: 'Approve',
     },
     [WorkflowAction.Disapprove]: {
-      [Lunguage.Japanese]: '非承認',
-      [Lunguage.English]: 'Disapprove',
+      [Language.Japanese]: '非承認',
+      [Language.English]: 'Disapprove',
     },
     [WorkflowAction.Reapplication]: {
-      [Lunguage.Japanese]: '再申請',
-      [Lunguage.English]: 'Reapplication',
+      [Language.Japanese]: '再申請',
+      [Language.English]: 'Reapplication',
     },
   };
 }

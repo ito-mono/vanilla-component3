@@ -7,6 +7,8 @@ export const styles = {
     display: 'flex',
     flexDirection: 'row-reverse',
     flexWrap: 'wrap',
-    maxWidth: '30rem',
+    maxWidth: '29rem',
+
+    transition: 'width 0.2s',
   }),
 };

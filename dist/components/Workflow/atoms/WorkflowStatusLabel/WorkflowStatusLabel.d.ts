@@ -1,6 +1,9 @@
-import { Lunguage, WorkflowStatus } from '../../enum';
+import { Language, WorkflowStatus } from "../../enum";
 export type WorkflowStatusLabelProps = {
-    statusCode?: WorkflowStatus;
-    lang?: Lunguage;
+  statusCode?: WorkflowStatus;
+  lang?: Language;
 };
-export declare function WorkflowStatusLabel({ statusCode, lang, }: WorkflowStatusLabelProps): import("react/jsx-runtime").JSX.Element;
+export declare function WorkflowStatusLabel({
+  statusCode,
+  lang,
+}: WorkflowStatusLabelProps): import("react/jsx-runtime").JSX.Element;

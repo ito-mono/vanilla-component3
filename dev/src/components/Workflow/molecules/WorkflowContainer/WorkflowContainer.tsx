@@ -1,8 +1,8 @@
 import '@/reset.css';
-import { useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 import { WorkflowStatusLabel } from '@wf/atoms';
-import { WorkflowAction, WorkflowStatus } from '@wf/enum';
+import { Language, WorkflowAction, WorkflowStatus } from '@wf/enum';
 
 import { WorkflowActionButtonsContainer } from '../WorkflowActionButtonsContainer';
 import { WorkflowUnitProps } from '../WorkflowUnit';
@@ -11,34 +11,31 @@ import { WorkflowUnitsContainer } from '../WorkflowUnitsContainer';
 import { styles } from './WorkflowContainer.css';
 
 export type WorkflowContainerProps = {
-  units?: WorkflowUnitProps[];
-  statusCode?: WorkflowStatus;
+  units: WorkflowUnitProps[];
+  setUnits: Dispatch<SetStateAction<WorkflowUnitProps[]>>;
+  statusCode: WorkflowStatus;
+  setStatusCode: Dispatch<SetStateAction<WorkflowStatus>>;
+  lang?: Language;
 };
 
 export function WorkflowContainer({
+  units,
+  setUnits,
   statusCode,
-  ...props
+  setStatusCode,
+  lang = Language.Japanese,
 }: WorkflowContainerProps) {
-  const [units, setUnits] = useState(props.units ? props.units : initUnits());
   return (
     <div className={styles.container}>
-      <WorkflowUnitsContainer units={units} onAction={onAction} />
-      <div>
-        <WorkflowStatusLabel statusCode={statusCode} />
-        <WorkflowActionButtonsContainer
-          statusCode={statusCode}
-          onAction={onAction}
-        />
+      <WorkflowUnitsContainer {...{ units, onAction }} />
+      <div className={styles.sideContainer}>
+        <WorkflowStatusLabel {...{ statusCode, lang }} />
+        <WorkflowActionButtonsContainer {...{ statusCode, lang, onAction }} />
       </div>
     </div>
   );
 
   /* 以下関数定義 */
-
-  // ユニット初期値
-  function initUnits(): WorkflowUnitProps[] {
-    return [{ title: '承認者' }];
-  }
 
   // actionCodeによって処理を分岐
   function onAction(actionCode: WorkflowAction, params?: unknown): void {
@@ -50,6 +47,14 @@ export function WorkflowContainer({
         break;
       case WorkflowAction.RemoveUnit:
         removeUnit(params);
+        break;
+      case WorkflowAction.Modify:
+      case WorkflowAction.SubmitModify:
+      case WorkflowAction.CancelModify:
+        setActiveStatus(statusCode, actionCode);
+        break;
+      default:
+        alert(`Call API ${WorkflowAction[actionCode]}`);
         break;
     }
   }
@@ -72,5 +77,56 @@ export function WorkflowContainer({
       newUnits.splice(index, 1);
       return newUnits;
     });
+  }
+
+  // statusCodeを変更
+  function setActiveStatus(
+    statusCode: WorkflowStatus,
+    actionCode: WorkflowAction,
+  ): boolean {
+    switch (actionCode) {
+      // 編集ボタン押下時
+      case WorkflowAction.Modify:
+        switch (statusCode) {
+          case WorkflowStatus.None:
+            setStatusCode(WorkflowStatus.EditingFromNone);
+            break;
+          case WorkflowStatus.PrePetition:
+            setStatusCode(WorkflowStatus.EditingFromPrePetition);
+            break;
+          case WorkflowStatus.Petitioning:
+            setStatusCode(WorkflowStatus.EditingFromPetitioning);
+            break;
+          case WorkflowStatus.Remanded:
+            setStatusCode(WorkflowStatus.EditingFromRemanded);
+            break;
+          default:
+            return false;
+        }
+        break;
+      // 保存及びキャンセルボタン押下時
+      case WorkflowAction.SubmitModify:
+      case WorkflowAction.CancelModify:
+        switch (statusCode) {
+          case WorkflowStatus.CanEditFromNone:
+            setStatusCode(WorkflowStatus.None);
+            break;
+          case WorkflowStatus.CanEditFromPrePetition:
+            setStatusCode(WorkflowStatus.PrePetition);
+            break;
+          case WorkflowStatus.CanEditFromPetitioning:
+            setStatusCode(WorkflowStatus.Petitioning);
+            break;
+          case WorkflowStatus.CanEditFromRemanded:
+            setStatusCode(WorkflowStatus.Remanded);
+            break;
+          default:
+            return false;
+        }
+        break;
+      default:
+        return false;
+    }
+    return true;
   }
 }

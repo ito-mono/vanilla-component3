@@ -1,6 +1,9 @@
 /// <reference types="react" />
-import { Lunguage, WorkflowAction } from '.';
+import { Language, WorkflowAction } from ".";
 export declare namespace WorkflowActionUtil {
-    function getLabel(actionCode: WorkflowAction, lang?: Lunguage): React.ReactNode;
-    function isIcon(actionCode: WorkflowAction): boolean;
+  function getLabel(
+    actionCode: WorkflowAction,
+    lang?: Language
+  ): React.ReactNode;
+  function isIcon(actionCode: WorkflowAction): boolean;
 }

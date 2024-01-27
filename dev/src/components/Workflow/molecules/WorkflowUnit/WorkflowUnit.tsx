@@ -1,6 +1,9 @@
+import { MutableRefObject, forwardRef } from 'react';
+
 import { WorkflowActionButton } from '@wf/atoms';
 import { WorkflowAction } from '@wf/enum';
 import { EmployeeInfo, WorkflowOnActionProps } from '@wf/types';
+import { MdMailOutline } from 'react-icons/md';
 
 import { styles } from './WorkflowUnit.css';
 
@@ -8,19 +11,22 @@ export type WorkflowUnitProps = {
   index?: number;
   title?: string;
   employeeInfo?: EmployeeInfo;
+  sendEmail?: boolean;
 } & WorkflowOnActionProps;
 
-export function WorkflowUnit({
-  index,
-  title,
-  employeeInfo,
-  onAction = () => {},
-}: WorkflowUnitProps) {
+// refを受け取るためforwardRefを使用
+export const WorkflowUnit = forwardRef(function (
+  props: WorkflowUnitProps,
+  ref,
+) {
+  const { index, title, employeeInfo, sendEmail, onAction = () => {} } = props;
+  const divRef = ref as MutableRefObject<HTMLDivElement>;
   return (
-    <div className={styles.frame}>
+    <div className={styles.frame} ref={divRef}>
       <div className={styles.wrapper}>
         <div className={styles.titleContainer}>
-          <p>{title}</p>
+          <p className={styles.title}>{title}</p>
+          <i>{sendEmail && <MdMailOutline />}</i>
         </div>
         <div className={styles.employeeInfoContainer}>
           {
@@ -35,6 +41,7 @@ export function WorkflowUnit({
             )
           }
         </div>
+        {}
         <div className={styles.buttonContainer}>
           <WorkflowActionButton
             actionCode={WorkflowAction.AddUnit}
@@ -55,4 +62,4 @@ export function WorkflowUnit({
       </div>
     </div>
   );
-}
+});

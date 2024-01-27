@@ -1,4 +1,4 @@
-export declare enum Lunguage {
-    Japanese = "ja",
-    English = "en"
+export declare enum Language {
+  Japanese = "ja",
+  English = "en",
 }

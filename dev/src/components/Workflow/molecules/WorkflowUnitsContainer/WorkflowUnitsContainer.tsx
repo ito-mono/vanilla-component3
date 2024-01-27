@@ -1,3 +1,5 @@
+import { RefObject, createRef, useEffect, useRef } from 'react';
+
 import { WorkflowOnActionProps } from '@wf/types';
 
 import { WorkflowUnit, WorkflowUnitProps } from '../WorkflowUnit';
@@ -12,6 +14,15 @@ export function WorkflowUnitsContainer({
   units,
   onAction,
 }: WorkflowUnitsContainerProps) {
+  // unitsのrefを作成
+  const refs = useRef<RefObject<HTMLDivElement>[]>([]);
+  units.forEach((_, index) => {
+    refs.current[index] = createRef<HTMLDivElement>();
+  });
+
+  useEffect(() => {
+    console.log(refs.current);
+  }, [units]);
   return (
     <div className={styles.container}>
       {
@@ -22,6 +33,7 @@ export function WorkflowUnitsContainer({
             index={index}
             onAction={onAction}
             key={index}
+            ref={refs.current[index]}
           />
         ))
       }
