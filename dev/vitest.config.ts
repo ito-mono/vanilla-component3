@@ -5,6 +5,6 @@ import viteConfig from './vite.config.ts';
 export default mergeConfig(
   viteConfig,
   defineConfig({
-    test: {},
+    test: { environment: 'happy-dom', setupFiles: './vitest.setup.ts' },
   }),
 );

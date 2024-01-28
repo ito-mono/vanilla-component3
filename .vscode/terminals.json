@@ -14,6 +14,13 @@
       "focus": false,
       "execute": true,
       "commands": ["cd dev", "npm run sb"]
+    },
+    {
+      "name": "vitest",
+      "description": "Vitest",
+      "focus": false,
+      "execute": true,
+      "commands": ["cd dev", "npm run test"]
     }
   ]
 }
