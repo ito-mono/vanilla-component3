@@ -7,7 +7,7 @@ export const styles = {
     display: 'flex',
     flexDirection: 'row-reverse',
     flexWrap: 'wrap',
-    maxWidth: '29rem',
+    maxWidth: '38.5rem',
 
     transition: 'width 0.2s',
   }),

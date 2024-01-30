@@ -7,14 +7,14 @@ import { styles } from './WorkflowActionButton.css';
 export type WorkflowActionButtonProps = {
   actionCode: WorkflowAction;
   lang: Language;
-  onAction: WorkflowOnAction;
+  onAction?: WorkflowOnAction;
   params?: unknown;
 };
 
 export function WorkflowActionButton({
   actionCode,
   lang,
-  onAction,
+  onAction = () => {},
   params,
 }: WorkflowActionButtonProps) {
   const isIcon = WorkflowActionUtil.isIcon(actionCode);

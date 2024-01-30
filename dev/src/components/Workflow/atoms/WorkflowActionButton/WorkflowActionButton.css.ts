@@ -32,7 +32,7 @@ export const styles = {
     base,
     {
       width: '8rem',
-      height: '2rem',
+      height: '1.8rem',
       borderRadius: '0.5rem',
       margin: '0.5rem 0.5rem 0 0.5rem',
     },
@@ -71,7 +71,7 @@ export const styles = {
     // ノーマル
     normal: createTheme(vars, {
       color: 'black',
-      backgroundColor: '#eeeeee',
+      backgroundColor: '#dddddd',
       border: 'none',
 
       hover: {

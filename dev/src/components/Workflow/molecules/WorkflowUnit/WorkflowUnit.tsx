@@ -1,5 +1,3 @@
-import { MutableRefObject, forwardRef } from 'react';
-
 import { WorkflowActionButton } from '@wf/atoms';
 import { Language, WorkflowAction } from '@wf/enum';
 import { EmployeeInfo, WorkflowOnAction } from '@wf/types';
@@ -13,15 +11,13 @@ export type WorkflowUnitProps = {
   employeeInfo?: EmployeeInfo;
   sendEmail: boolean;
   lang: Language;
-  onAction: WorkflowOnAction;
+  onAction?: WorkflowOnAction;
 };
 
-// refを受け取るためforwardRefを使用
-export const WorkflowUnit = forwardRef(function (props: WorkflowUnitProps, ref) {
-  const { index, title, employeeInfo, sendEmail, lang, onAction } = props;
-  const divRef = ref as MutableRefObject<HTMLDivElement>;
+export function WorkflowUnit(props: WorkflowUnitProps) {
+  const { index, title, employeeInfo, sendEmail, lang, onAction = () => {} } = props;
   return (
-    <div className={styles.frame} ref={divRef}>
+    <div className={styles.frame}>
       <div className={styles.wrapper}>
         <div className={styles.titleContainer}>
           <p className={styles.title}>{title}</p>
@@ -54,4 +50,4 @@ export const WorkflowUnit = forwardRef(function (props: WorkflowUnitProps, ref) 
       </div>
     </div>
   );
-});
+}

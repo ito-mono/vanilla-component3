@@ -1,7 +1,7 @@
 import '@/reset.css';
 
 import { WorkflowStatusLabel } from '@wf/atoms';
-import { WorkflowAction, WorkflowStatus } from '@wf/enum';
+import { Language, WorkflowAction, WorkflowStatus } from '@wf/enum';
 
 import { WorkflowActionButtonsContainer } from '../WorkflowActionButtonsContainer';
 import { WorkflowUnitsContainer } from '../WorkflowUnitsContainer';
@@ -53,9 +53,16 @@ export function WorkflowContainer({
   // ユニット追加
   function addUnit(params?: unknown) {
     setUnits((units) => {
+      console.log(units);
       const index = (params as number) + 1;
       const newUnits = [...units];
-      newUnits.splice(index, 0, { title: '承認者' });
+      newUnits.splice(index, 0, {
+        index,
+        title: '承認者',
+        sendEmail: false,
+        lang: Language.Japanese,
+        onAction,
+      });
       return newUnits;
     });
   }
