@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { Lunguage, WorkflowAction } from '@wf/enum';
+import { Language, WorkflowAction } from '@wf/enum';
 
 import { WorkflowActionButton, WorkflowActionButtonProps } from '.';
 
@@ -14,6 +14,9 @@ type Story = StoryObj<WorkflowActionButtonProps>;
 export const Default: Story = {
   args: {
     actionCode: WorkflowAction.Petition,
-    lang: Lunguage.Japanese,
+    lang: Language.Japanese,
+  },
+  render: function render(args) {
+    return <WorkflowActionButton {...args} />;
   },
 };

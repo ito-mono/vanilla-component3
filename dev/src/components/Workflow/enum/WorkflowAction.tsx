@@ -20,4 +20,6 @@ export enum WorkflowAction {
 
   // 承認済み
   Reapplication = 41,             // 再申請
+
+  
 }

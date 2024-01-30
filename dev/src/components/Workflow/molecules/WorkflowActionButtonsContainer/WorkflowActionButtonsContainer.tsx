@@ -1,27 +1,77 @@
 import { WorkflowActionButton, WorkflowActionButtonProps } from '@wf/atoms';
-import { WorkflowAction, WorkflowStatus } from '@wf/enum';
-import { WorkflowOnActionProps } from '@wf/types';
+import { Language, WorkflowAction, WorkflowStatus } from '@wf/enum';
+import { WorkflowOnAction } from '@wf/types';
 
 import { styles } from './WorkflowActionButtonsContainer.css';
 
 export type WorkflowActionButtonsContainerProps = {
   statusCode?: WorkflowStatus;
-} & WorkflowOnActionProps;
+  lang?: Language;
+  onAction?: WorkflowOnAction;
+};
 
 export function WorkflowActionButtonsContainer({
   statusCode,
+  lang = Language.Japanese,
   onAction = () => {},
 }: WorkflowActionButtonsContainerProps) {
-  console.log(statusCode);
-  const buttons: WorkflowActionButtonProps[] = [
-    { actionCode: WorkflowAction.Petition },
-    { actionCode: WorkflowAction.Reapplication },
-  ];
+  const buttons: WorkflowActionButtonProps[] = getButtons(statusCode);
+
   return (
     <div className={styles.container}>
-      {buttons.map((button) => (
-        <WorkflowActionButton {...button} onAction={onAction} />
-      ))}
+      {
+        /* TODO: 突貫でkey = indexにしてしまっているのでいずれ直す */
+        buttons.map((button, index) => (
+          <WorkflowActionButton {...{ ...button, lang, onAction }} key={index} />
+        ))
+      }
     </div>
   );
+
+  /* 以下関数定義 */
+  // StatusCode によってボタンを変える
+  function getButtons(statusCode?: WorkflowStatus): WorkflowActionButtonProps[] {
+    let buttons: WorkflowActionButtonProps[] = [];
+    switch (statusCode) {
+      // 申請前 かつ 編集不可のユーザーでログインしている場合
+      case WorkflowStatus.None:
+      case WorkflowStatus.PrePetition:
+        buttons = [];
+        break;
+      // 申請中 かつ 編集不可のユーザーでログインしている場合
+      case WorkflowStatus.Petitioning:
+        buttons = [{ actionCode: WorkflowAction.CancelPetition, lang }];
+        break;
+      case WorkflowStatus.Remanded:
+        buttons = [
+          { actionCode: WorkflowAction.Modify, lang },
+          { actionCode: WorkflowAction.Petition, lang },
+        ];
+        break;
+      case WorkflowStatus.Approved:
+        buttons = [];
+        break;
+      // 編集可能
+      case WorkflowStatus.CanEdit:
+        buttons = [
+          { actionCode: WorkflowAction.Modify, lang },
+          { actionCode: WorkflowAction.Petition, lang },
+        ];
+        break;
+      // 編集中
+      case WorkflowStatus.Editing:
+        buttons = [
+          { actionCode: WorkflowAction.SubmitModify, lang },
+          { actionCode: WorkflowAction.CancelModify, lang },
+        ];
+        break;
+      case WorkflowStatus.Approving:
+        buttons = [
+          { actionCode: WorkflowAction.Approve, lang },
+          { actionCode: WorkflowAction.Disapprove, lang },
+        ];
+        break;
+    }
+    return buttons;
+  }
 }

@@ -25,7 +25,8 @@
       "@/*": ["src/*"],
       "@wf/*": ["src/components/Workflow/*"],
     },
+    "types": ["@testing-library/jest-dom"],
   },
-  "include": ["src"],
+  "include": ["src", "vitest.setup.ts"],
   "references": [{ "path": "./tsconfig.node.json" }],
 }

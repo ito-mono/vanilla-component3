@@ -1,26 +1,27 @@
 import { WorkflowActionButton } from '@wf/atoms';
-import { WorkflowAction } from '@wf/enum';
-import { EmployeeInfo, WorkflowOnActionProps } from '@wf/types';
+import { Language, WorkflowAction } from '@wf/enum';
+import { EmployeeInfo, WorkflowOnAction } from '@wf/types';
+import { MdMailOutline } from 'react-icons/md';
 
 import { styles } from './WorkflowUnit.css';
 
 export type WorkflowUnitProps = {
-  index?: number;
-  title?: string;
+  index: number;
+  title: string;
   employeeInfo?: EmployeeInfo;
-} & WorkflowOnActionProps;
+  sendEmail: boolean;
+  lang: Language;
+  onAction?: WorkflowOnAction;
+};
 
-export function WorkflowUnit({
-  index,
-  title,
-  employeeInfo,
-  onAction = () => {},
-}: WorkflowUnitProps) {
+export function WorkflowUnit(props: WorkflowUnitProps) {
+  const { index, title, employeeInfo, sendEmail, lang, onAction = () => {} } = props;
   return (
     <div className={styles.frame}>
       <div className={styles.wrapper}>
         <div className={styles.titleContainer}>
-          <p>{title}</p>
+          <p className={styles.title}>{title}</p>
+          <i>{sendEmail && <MdMailOutline />}</i>
         </div>
         <div className={styles.employeeInfoContainer}>
           {
@@ -37,19 +38,13 @@ export function WorkflowUnit({
         </div>
         <div className={styles.buttonContainer}>
           <WorkflowActionButton
-            actionCode={WorkflowAction.AddUnit}
-            onAction={onAction}
-            params={index}
+            {...{ actionCode: WorkflowAction.AddUnit, lang, onAction, params: index }}
           />
           <WorkflowActionButton
-            actionCode={WorkflowAction.ChangeApprover}
-            onAction={onAction}
-            params={index}
+            {...{ actionCode: WorkflowAction.ChangeApprover, lang, onAction, params: index }}
           />
           <WorkflowActionButton
-            actionCode={WorkflowAction.RemoveUnit}
-            onAction={onAction}
-            params={index}
+            {...{ actionCode: WorkflowAction.RemoveUnit, lang, onAction, params: index }}
           />
         </div>
       </div>

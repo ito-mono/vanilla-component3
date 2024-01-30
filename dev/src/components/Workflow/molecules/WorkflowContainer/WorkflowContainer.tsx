@@ -1,44 +1,32 @@
 import '@/reset.css';
-import { useState } from 'react';
 
 import { WorkflowStatusLabel } from '@wf/atoms';
-import { WorkflowAction, WorkflowStatus } from '@wf/enum';
+import { Language, WorkflowAction, WorkflowStatus } from '@wf/enum';
 
 import { WorkflowActionButtonsContainer } from '../WorkflowActionButtonsContainer';
-import { WorkflowUnitProps } from '../WorkflowUnit';
 import { WorkflowUnitsContainer } from '../WorkflowUnitsContainer';
 
 import { styles } from './WorkflowContainer.css';
+import { useWorkFlowReturn } from './useWorkflow';
 
 export type WorkflowContainerProps = {
-  units?: WorkflowUnitProps[];
-  statusCode?: WorkflowStatus;
+  props: useWorkFlowReturn;
 };
 
 export function WorkflowContainer({
-  statusCode,
-  ...props
+  props: { units, setUnits, statusCode, setStatusCode, lang },
 }: WorkflowContainerProps) {
-  const [units, setUnits] = useState(props.units ? props.units : initUnits());
   return (
     <div className={styles.container}>
-      <WorkflowUnitsContainer units={units} onAction={onAction} />
-      <div>
-        <WorkflowStatusLabel statusCode={statusCode} />
-        <WorkflowActionButtonsContainer
-          statusCode={statusCode}
-          onAction={onAction}
-        />
+      <WorkflowUnitsContainer {...{ units, onAction }} />
+      <div className={styles.sideContainer}>
+        <WorkflowStatusLabel {...{ statusCode, lang }} />
+        <WorkflowActionButtonsContainer {...{ statusCode, lang, onAction }} />
       </div>
     </div>
   );
 
   /* 以下関数定義 */
-
-  // ユニット初期値
-  function initUnits(): WorkflowUnitProps[] {
-    return [{ title: '承認者' }];
-  }
 
   // actionCodeによって処理を分岐
   function onAction(actionCode: WorkflowAction, params?: unknown): void {
@@ -51,15 +39,30 @@ export function WorkflowContainer({
       case WorkflowAction.RemoveUnit:
         removeUnit(params);
         break;
+      case WorkflowAction.Modify:
+      case WorkflowAction.SubmitModify:
+      case WorkflowAction.CancelModify:
+        setActiveStatus(actionCode);
+        break;
+      default:
+        alert(`Call API ${WorkflowAction[actionCode]}`);
+        break;
     }
   }
 
   // ユニット追加
   function addUnit(params?: unknown) {
     setUnits((units) => {
+      console.log(units);
       const index = (params as number) + 1;
       const newUnits = [...units];
-      newUnits.splice(index, 0, { title: '承認者' });
+      newUnits.splice(index, 0, {
+        index,
+        title: '承認者',
+        sendEmail: false,
+        lang: Language.Japanese,
+        onAction,
+      });
       return newUnits;
     });
   }
@@ -72,5 +75,23 @@ export function WorkflowContainer({
       newUnits.splice(index, 1);
       return newUnits;
     });
+  }
+
+  // statusCodeを変更
+  function setActiveStatus(actionCode: WorkflowAction): boolean {
+    switch (actionCode) {
+      // 編集ボタン押下時
+      case WorkflowAction.Modify:
+        setStatusCode(WorkflowStatus.Editing);
+        break;
+      // 保存及びキャンセルボタン押下時
+      case WorkflowAction.SubmitModify:
+      case WorkflowAction.CancelModify:
+        setStatusCode(WorkflowStatus.CanEdit);
+        break;
+      default:
+        return false;
+    }
+    return true;
   }
 }
