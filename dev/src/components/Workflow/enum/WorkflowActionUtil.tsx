@@ -26,6 +26,12 @@ export namespace WorkflowActionUtil {
     return result;
   }
 
+  export function needParams(actionCode: WorkflowAction): boolean {
+    const result = WorkflowActionLabel[actionCode].needParams as boolean;
+    if (result == null) return false;
+    return result;
+  }
+
   // 表示するラベル（アイコンも含む）の辞書
   // MEMO: アイコンのみの場合はjaのみ定義、isIcon: trueを追加する
   const WorkflowActionLabel: {
@@ -34,14 +40,17 @@ export namespace WorkflowActionUtil {
     [WorkflowAction.AddUnit]: {
       [Language.Japanese]: <MdOutlinePersonAdd />,
       isIcon: true,
+      needParams: true,
     },
     [WorkflowAction.ChangeApprover]: {
       [Language.Japanese]: <MdOutlinePersonSearch />,
       isIcon: true,
+      needParams: true,
     },
     [WorkflowAction.RemoveUnit]: {
       [Language.Japanese]: <MdOutlinePersonRemove />,
       isIcon: true,
+      needParams: true,
     },
     [WorkflowAction.Modify]: {
       [Language.Japanese]: '編集',

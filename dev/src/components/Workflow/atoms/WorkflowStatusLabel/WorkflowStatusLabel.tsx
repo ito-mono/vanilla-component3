@@ -4,18 +4,25 @@ import clsx from 'clsx';
 import { styles } from './WorkflowStatusLabel.css';
 
 export type WorkflowStatusLabelProps = {
-  statusCode?: WorkflowStatus;
-  lang?: Language;
+  statusCode: WorkflowStatus;
+  lang: Language;
 };
 
 export function WorkflowStatusLabel({
-  statusCode = WorkflowStatus.None,
-  lang = Language.Japanese,
+  statusCode,
+  lang,
 }: WorkflowStatusLabelProps) {
   const label =
     WorkflowStatusUtil.getLabel(statusCode, lang) + statusCode.toString();
   const themeClass = getThemeClass(statusCode);
-  return <p className={clsx(styles.label, themeClass)}>{label}</p>;
+  return (
+    <p
+      data-testid='workflowStatusLabel'
+      className={clsx(styles.label, themeClass)}
+    >
+      {label}
+    </p>
+  );
 }
 
 /* 以下関数定義 */
@@ -41,17 +48,11 @@ function getThemeClass(statusCode: WorkflowStatus): string {
       themeClass = styles.themes.success;
       break;
     // 編集可能
-    case WorkflowStatus.CanEditFromPrePetition:
-    case WorkflowStatus.CanEditFromPetitioning:
-    case WorkflowStatus.CanEditFromRemanded:
-    case WorkflowStatus.CanEditFromNone:
+    case WorkflowStatus.CanEdit:
       themeClass = styles.themes.pending;
       break;
     // 編集中
-    case WorkflowStatus.EditingFromPrePetition:
-    case WorkflowStatus.EditingFromPetitioning:
-    case WorkflowStatus.EditingFromRemanded:
-    case WorkflowStatus.EditingFromNone:
+    case WorkflowStatus.Editing:
       themeClass = styles.themes.pending;
       break;
     // 承認中

@@ -1,29 +1,20 @@
 import '@/reset.css';
-import { Dispatch, SetStateAction } from 'react';
 
 import { WorkflowStatusLabel } from '@wf/atoms';
-import { Language, WorkflowAction, WorkflowStatus } from '@wf/enum';
+import { WorkflowAction, WorkflowStatus } from '@wf/enum';
 
 import { WorkflowActionButtonsContainer } from '../WorkflowActionButtonsContainer';
-import { WorkflowUnitProps } from '../WorkflowUnit';
 import { WorkflowUnitsContainer } from '../WorkflowUnitsContainer';
 
 import { styles } from './WorkflowContainer.css';
+import { useWorkFlowReturn } from './useWorkflow';
 
 export type WorkflowContainerProps = {
-  units: WorkflowUnitProps[];
-  setUnits: Dispatch<SetStateAction<WorkflowUnitProps[]>>;
-  statusCode: WorkflowStatus;
-  setStatusCode: Dispatch<SetStateAction<WorkflowStatus>>;
-  lang?: Language;
+  props: useWorkFlowReturn;
 };
 
 export function WorkflowContainer({
-  units,
-  setUnits,
-  statusCode,
-  setStatusCode,
-  lang = Language.Japanese,
+  props: { units, setUnits, statusCode, setStatusCode, lang },
 }: WorkflowContainerProps) {
   return (
     <div className={styles.container}>
@@ -51,7 +42,7 @@ export function WorkflowContainer({
       case WorkflowAction.Modify:
       case WorkflowAction.SubmitModify:
       case WorkflowAction.CancelModify:
-        setActiveStatus(statusCode, actionCode);
+        setActiveStatus(actionCode);
         break;
       default:
         alert(`Call API ${WorkflowAction[actionCode]}`);
@@ -80,49 +71,16 @@ export function WorkflowContainer({
   }
 
   // statusCodeを変更
-  function setActiveStatus(
-    statusCode: WorkflowStatus,
-    actionCode: WorkflowAction,
-  ): boolean {
+  function setActiveStatus(actionCode: WorkflowAction): boolean {
     switch (actionCode) {
       // 編集ボタン押下時
       case WorkflowAction.Modify:
-        switch (statusCode) {
-          case WorkflowStatus.None:
-            setStatusCode(WorkflowStatus.EditingFromNone);
-            break;
-          case WorkflowStatus.PrePetition:
-            setStatusCode(WorkflowStatus.EditingFromPrePetition);
-            break;
-          case WorkflowStatus.Petitioning:
-            setStatusCode(WorkflowStatus.EditingFromPetitioning);
-            break;
-          case WorkflowStatus.Remanded:
-            setStatusCode(WorkflowStatus.EditingFromRemanded);
-            break;
-          default:
-            return false;
-        }
+        setStatusCode(WorkflowStatus.Editing);
         break;
       // 保存及びキャンセルボタン押下時
       case WorkflowAction.SubmitModify:
       case WorkflowAction.CancelModify:
-        switch (statusCode) {
-          case WorkflowStatus.CanEditFromNone:
-            setStatusCode(WorkflowStatus.None);
-            break;
-          case WorkflowStatus.CanEditFromPrePetition:
-            setStatusCode(WorkflowStatus.PrePetition);
-            break;
-          case WorkflowStatus.CanEditFromPetitioning:
-            setStatusCode(WorkflowStatus.Petitioning);
-            break;
-          case WorkflowStatus.CanEditFromRemanded:
-            setStatusCode(WorkflowStatus.Remanded);
-            break;
-          default:
-            return false;
-        }
+        setStatusCode(WorkflowStatus.CanEdit);
         break;
       default:
         return false;

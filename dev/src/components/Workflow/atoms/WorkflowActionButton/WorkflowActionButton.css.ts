@@ -68,8 +68,21 @@ export const styles = {
       },
     }),
 
-    // アクション
-    action: createTheme(vars, {
+    // ノーマル
+    normal: createTheme(vars, {
+      color: 'black',
+      backgroundColor: '#eeeeee',
+      border: 'none',
+
+      hover: {
+        color: 'black',
+        backgroundColor: '#bbbbbb',
+        border: 'none',
+      },
+    }),
+
+    // 安全
+    safe: createTheme(vars, {
       color: 'white',
       backgroundColor: '#99ccff',
       border: 'none',
@@ -77,6 +90,19 @@ export const styles = {
       hover: {
         color: 'white',
         backgroundColor: '#66ccff',
+        border: 'none',
+      },
+    }),
+
+    // 注意
+    warn: createTheme(vars, {
+      color: 'white',
+      backgroundColor: '#ffcc99',
+      border: 'none',
+
+      hover: {
+        color: 'white',
+        backgroundColor: '#ffcc66',
         border: 'none',
       },
     }),

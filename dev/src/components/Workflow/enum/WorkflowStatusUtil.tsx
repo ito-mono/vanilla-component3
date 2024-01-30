@@ -41,47 +41,17 @@ export namespace WorkflowStatusUtil {
     },
 
     // 申請前 から遷移するステータス
-    [WorkflowStatus.CanEditFromPrePetition]: {
+    [WorkflowStatus.CanEdit]: {
       [Language.Japanese]: '編集可能',
       [Language.English]: 'Can Edit',
     },
-    [WorkflowStatus.EditingFromPrePetition]: {
-      [Language.Japanese]: '編集中',
-      [Language.English]: 'Editing',
-    },
-
-    // 申請中 から遷移するステータス
-    [WorkflowStatus.CanEditFromPetitioning]: {
-      [Language.Japanese]: '編集可能',
-      [Language.English]: 'Can Edit',
-    },
-    [WorkflowStatus.EditingFromPetitioning]: {
+    [WorkflowStatus.Editing]: {
       [Language.Japanese]: '編集中',
       [Language.English]: 'Editing',
     },
     [WorkflowStatus.Approving]: {
       [Language.Japanese]: '承認中',
       [Language.English]: 'Approving',
-    },
-
-    // 差戻し中 から遷移するステータス
-    [WorkflowStatus.CanEditFromRemanded]: {
-      [Language.Japanese]: '編集可能',
-      [Language.English]: 'Can Edit',
-    },
-    [WorkflowStatus.EditingFromRemanded]: {
-      [Language.Japanese]: '編集中',
-      [Language.English]: 'Editing',
-    },
-
-    // 申請情報なし から遷移するステータス
-    [WorkflowStatus.CanEditFromNone]: {
-      [Language.Japanese]: '編集可能',
-      [Language.English]: 'Can Edit',
-    },
-    [WorkflowStatus.EditingFromNone]: {
-      [Language.Japanese]: '編集中',
-      [Language.English]: 'Editing',
     },
   };
 }
