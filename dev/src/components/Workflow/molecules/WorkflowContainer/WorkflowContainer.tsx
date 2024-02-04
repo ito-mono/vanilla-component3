@@ -7,10 +7,10 @@ import { WorkflowActionButtonsContainer } from '../WorkflowActionButtonsContaine
 import { WorkflowUnitsContainer } from '../WorkflowUnitsContainer';
 
 import { styles } from './WorkflowContainer.css';
-import { useWorkFlowReturn } from './useWorkflow';
+import { useWorkflowReturn } from './useWorkflow';
 
 export type WorkflowContainerProps = {
-  props: useWorkFlowReturn;
+  props: useWorkflowReturn;
 };
 
 export function WorkflowContainer({

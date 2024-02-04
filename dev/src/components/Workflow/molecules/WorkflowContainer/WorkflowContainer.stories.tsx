@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { Language, WorkflowStatus } from '@wf/enum';
 
-import { useWorkFlow } from './useWorkflow';
+import { useWorkflow } from './useWorkflow';
 
 import { WorkflowContainer } from '.';
 
@@ -35,7 +35,7 @@ export const Default: Story = {
     lang: Language.Japanese,
   },
   render: function Render(args) {
-    const props = useWorkFlow({
+    const props = useWorkflow({
       units: [
         { title: '申請者', employeeInfo: { id: '0001', name: '山田太郎' } },
         { title: '承認者1', employeeInfo: { id: '0002', name: '山田一浪' } },

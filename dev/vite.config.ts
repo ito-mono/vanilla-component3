@@ -23,5 +23,14 @@ export default defineConfig({
     },
     outDir: '../dist',
     emptyOutDir: true,
+    rollupOptions: {
+      external: ['react', 'react-dom'],
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+        },
+      },
+    },
   },
 });

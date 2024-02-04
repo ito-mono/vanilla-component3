@@ -49,6 +49,7 @@
     "prettier": "^3.2.4",
     "react-icons": "^5.0.1",
     "storybook": "^7.6.10",
+    "ts-node": "^10.9.2",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
     "vite-plugin-dts": "^3.7.1",

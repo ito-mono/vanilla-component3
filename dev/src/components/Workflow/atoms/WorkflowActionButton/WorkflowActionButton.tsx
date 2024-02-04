@@ -7,10 +7,19 @@ import { styles } from './WorkflowActionButton.css';
 export type WorkflowActionButtonProps = {
   actionCode: WorkflowAction;
   lang: Language;
-  onAction?: WorkflowOnAction;
+  onAction: WorkflowOnAction;
   params?: unknown;
 };
 
+/**
+ *
+ * @param actionCode WorkflowAction
+ * @param lang Language
+ * @param onAction
+ * @param params
+ *
+ * @returns ワークフローアクションボタン
+ */
 export function WorkflowActionButton({
   actionCode,
   lang,

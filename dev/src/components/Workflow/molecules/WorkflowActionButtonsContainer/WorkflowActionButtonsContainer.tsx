@@ -32,6 +32,7 @@ export function WorkflowActionButtonsContainer({
   // StatusCode によってボタンを変える
   function getButtons(statusCode?: WorkflowStatus): WorkflowActionButtonProps[] {
     let buttons: WorkflowActionButtonProps[] = [];
+    const beseProps = { lang, onAction };
     switch (statusCode) {
       // 申請前 かつ 編集不可のユーザーでログインしている場合
       case WorkflowStatus.None:
@@ -40,12 +41,12 @@ export function WorkflowActionButtonsContainer({
         break;
       // 申請中 かつ 編集不可のユーザーでログインしている場合
       case WorkflowStatus.Petitioning:
-        buttons = [{ actionCode: WorkflowAction.CancelPetition, lang }];
+        buttons = [{ ...beseProps, actionCode: WorkflowAction.CancelPetition }];
         break;
       case WorkflowStatus.Remanded:
         buttons = [
-          { actionCode: WorkflowAction.Modify, lang },
-          { actionCode: WorkflowAction.Petition, lang },
+          { ...beseProps, actionCode: WorkflowAction.Modify },
+          { ...beseProps, actionCode: WorkflowAction.Petition },
         ];
         break;
       case WorkflowStatus.Approved:
@@ -54,21 +55,21 @@ export function WorkflowActionButtonsContainer({
       // 編集可能
       case WorkflowStatus.CanEdit:
         buttons = [
-          { actionCode: WorkflowAction.Modify, lang },
-          { actionCode: WorkflowAction.Petition, lang },
+          { ...beseProps, actionCode: WorkflowAction.Modify },
+          { ...beseProps, actionCode: WorkflowAction.Petition },
         ];
         break;
       // 編集中
       case WorkflowStatus.Editing:
         buttons = [
-          { actionCode: WorkflowAction.SubmitModify, lang },
-          { actionCode: WorkflowAction.CancelModify, lang },
+          { ...beseProps, actionCode: WorkflowAction.SubmitModify },
+          { ...beseProps, actionCode: WorkflowAction.CancelModify },
         ];
         break;
       case WorkflowStatus.Approving:
         buttons = [
-          { actionCode: WorkflowAction.Approve, lang },
-          { actionCode: WorkflowAction.Disapprove, lang },
+          { ...beseProps, actionCode: WorkflowAction.Approve },
+          { ...beseProps, actionCode: WorkflowAction.Disapprove },
         ];
         break;
     }
