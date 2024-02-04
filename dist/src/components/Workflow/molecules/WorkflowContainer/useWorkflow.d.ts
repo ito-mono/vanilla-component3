@@ -2,16 +2,16 @@ import { Dispatch, SetStateAction } from 'react';
 import { Language, WorkflowStatus } from '../../enum';
 import { EmployeeInfo } from '../../types';
 import { WorkflowUnitProps } from '../WorkflowUnit';
-export type useWorkFlowProps = {
-    units: useWorkFlowUnitProps[];
+export type useWorkflowProps = {
+    units: useWorkflowUnitProps[];
     statusCode: WorkflowStatus;
     lang?: Language;
 };
-type useWorkFlowUnitProps = {
+type useWorkflowUnitProps = {
     title: string;
     employeeInfo?: EmployeeInfo;
 };
-export type useWorkFlowReturn = {
+export type useWorkflowReturn = {
     units: WorkflowUnitProps[];
     setUnits: Dispatch<SetStateAction<WorkflowUnitProps[]>>;
     initialStatusCode: WorkflowStatus;
@@ -22,5 +22,5 @@ export type useWorkFlowReturn = {
 /**
  * ワークフローの状態を管理するカスタムフック
  */
-export declare function useWorkFlow({ lang, ...props }: useWorkFlowProps): useWorkFlowReturn;
+export declare function useWorkflow({ lang, ...props }: useWorkflowProps): useWorkflowReturn;
 export {};

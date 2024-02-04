@@ -21,6 +21,13 @@
       "focus": false,
       "execute": true,
       "commands": ["cd dev", "npm run test"]
+    },
+    {
+      "name": "build",
+      "description": "ビルド",
+      "focus": false,
+      "execute": true,
+      "commands": ["cd dev", "npm run build"]
     }
   ]
 }

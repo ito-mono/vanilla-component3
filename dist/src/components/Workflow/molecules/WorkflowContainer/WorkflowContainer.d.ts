@@ -1,5 +1,5 @@
-import { useWorkFlowReturn } from './useWorkflow';
+import { useWorkflowReturn } from './useWorkflow';
 export type WorkflowContainerProps = {
-    props: useWorkFlowReturn;
+    props: useWorkflowReturn;
 };
 export declare function WorkflowContainer({ props: { units, setUnits, statusCode, setStatusCode, lang }, }: WorkflowContainerProps): import("react/jsx-runtime").JSX.Element;

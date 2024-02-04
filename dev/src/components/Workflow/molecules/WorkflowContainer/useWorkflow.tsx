@@ -6,20 +6,20 @@ import { EmployeeInfo } from '@wf/types';
 import { WorkflowUnitProps } from '../WorkflowUnit';
 
 // 引数
-export type useWorkFlowProps = {
-  units: useWorkFlowUnitProps[];
+export type useWorkflowProps = {
+  units: useWorkflowUnitProps[];
   statusCode: WorkflowStatus;
   lang?: Language;
 };
 
 // 引数のユニットの型定義
-type useWorkFlowUnitProps = {
+type useWorkflowUnitProps = {
   title: string;
   employeeInfo?: EmployeeInfo;
 };
 
 // 返り値
-export type useWorkFlowReturn = {
+export type useWorkflowReturn = {
   units: WorkflowUnitProps[];
   setUnits: Dispatch<SetStateAction<WorkflowUnitProps[]>>;
   initialStatusCode: WorkflowStatus;
@@ -31,10 +31,10 @@ export type useWorkFlowReturn = {
 /**
  * ワークフローの状態を管理するカスタムフック
  */
-export function useWorkFlow({
+export function useWorkflow({
   lang = Language.Japanese,
   ...props
-}: useWorkFlowProps): useWorkFlowReturn {
+}: useWorkflowProps): useWorkflowReturn {
   // WorkflowUnitPropsにキャスト
   const castedUnits = props.units.map(
     (unit, index) =>
